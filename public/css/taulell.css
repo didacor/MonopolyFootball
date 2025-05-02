@@ -1,0 +1,130 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    margin-top: 10px; 
+    padding-top: 0;
+}
+
+.board {
+    display: grid;
+    grid-template-rows: repeat(11, 50px);
+    justify-content: center;
+    margin: 10px auto;
+    width: fit-content;
+    background: white;
+    border: 5px solid black;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cell {
+    background: #ddd;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+
+.spacer {
+    background: transparent;
+    border: none;
+}
+
+.board .cell:empty {
+    visibility: hidden; 
+}
+
+.cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+#currentPositionDisplay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 10px;
+    width: 300px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+#positionImage {
+    width: 100px;  
+    height: 100px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    border: 2px solid black;
+    display: block; 
+    margin: auto; 
+    margin-top: -20px; 
+}
+
+.player1 {
+    background-color: #ffcc00; 
+}
+
+.player2 {
+    background-color: #00ccff;
+}
+
+.players {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    margin-left: 110px;
+    margin-right: 75px;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-button:hover {
+    background-color: #e81919;
+}
+
+
+
+
+

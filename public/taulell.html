@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monopoly Fútbol</title>
+    <link rel="stylesheet" href="./css/taulell.css">
+    <link rel="icon" href="images/icone_pilota.jpg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <h1>⚽ Monopoly Football ⚽</h1>
+
+    <div class="board">
+        <div class="row">
+            <div class="cell corner">Inici</div>
+            <div class="cell">Girona</div>
+            <div class="cell">Man. United</div>
+            <div class="cell">Athletic</div>
+            <div class="cell">😲</div>
+            <div class="cell">Partit Top</div>
+            <div class="cell">Bayern Munich</div>
+            <div class="cell">❔</div>
+            <div class="cell">Milan</div>
+            <div class="cell">Man. City</div>
+            <div class="cell corner">Cap a presó</div>
+        </div>
+        <div class="row">
+            <div class="cell">Barça</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">PSG</div>
+        </div>
+        <div class="row">
+            <div class="cell">Inter de Milan</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Comitè Arbitral</div>
+        </div>
+        <div class="row">
+            <div class="cell">Sevilla</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Ajax</div>
+        </div>
+        <div class="row">
+            <div class="cell">😲</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Sanció UEFA</div>
+        </div>
+        <div class="row">
+            <div class="cell">Liverpool</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Betis</div>
+        </div>
+        <div class="row">
+            <div class="cell">Sanció UEFA</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Chelsea</div>
+        </div>
+        <div class="row">
+            <div class="cell">PSV</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Bayern 04</div>
+        </div>
+        <div class="row">
+            <div class="cell">Madrid</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">❔</div>
+        </div>
+        <div class="row">
+            <div class="cell">Celtic</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div> 
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">Arsenal</div>
+        </div>
+        <div class="row">
+            <div class="cell corner">Visita a Presó</div>
+            <div class="cell">Marsella</div>
+            <div class="cell">❔</div>
+            <div class="cell">Oporto</div>
+            <div class="cell">Nous Abonats</div>
+            <div class="cell">Leipzig</div>
+            <div class="cell">Partit Top</div>
+            <div class="cell">Atletico</div>
+            <div class="cell">😲</div>
+            <div class="cell">Benfica</div>
+            <div class="cell corner">Finança</div>
+        </div>
+    </div>
+    </div>
+    <div id="currentPositionDisplay">
+        <p id="currentPositionText">Jugador 1 i 2 estan a la casella Inici</p>
+        <div id="currentPositionImage" style="text-align: center; margin-top: 20px;">
+            <img id="positionImage" src="images/inici.jpg" alt="" style="max-width: 300px; max-height: 200px;">
+        </div>
+    </div>
+
+    <button id="signPlayer" disabled>Fitxar Jugador ✍🏼</button>
+    <button id="rollDice">Tirar Dau 🎲</button>
+    <button id="passTurn" disabled>Passar Torn 🔁</button>
+    <p id="result"></p>
+
+    <div class="players">
+        <div class="player" id="player1">
+            <div class="player-zone">
+            </div>
+        </div>
+        <div class="player" id="player2">
+            <div class="player-zone">
+            </div>
+        </div>
+    </div>  
+    
+    <button id="menuButton" class="menu-button"><i class="bi bi-arrow-left"></i></button>
+
+    <button id="endGameButton" class="menu-button" style="right: 70px;"><i class="bi bi-exclamation-circle-fill"></i></i></button>
+
+    <script src="./js/taulell.js"></script>
+
+</body>
+</html>

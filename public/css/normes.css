@@ -1,0 +1,60 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;  
+}
+
+.menu-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+  
+.menu-button i {
+    color: #000;
+}
+
+.menu-button:hover {
+    background-color: #868484;
+}
+
+.container {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #212529;
+}
+
+.instructions p,
+.instructions li {
+    font-size: 1.1rem;
+    color: #495057;
+    line-height: 1.6;
+}
+
+.instructions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.instructions ul li::before {
+    content: "⚽";
+    margin-right: 10px;
+    color: #17a2b8;
+}
+
+.instructions p.text-center {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #28a745;
+}

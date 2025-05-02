@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARTIT - Monopoly Football</title>
+    <link rel="stylesheet" href="./css/partit.css">
+    <link rel="icon" href="images/icone_pilota.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+    <div class="header">
+      <div class="nom-equip equip-local">
+        <span id="equipLocal"></span>
+        <span class="marcador" id="marcadorLocal">0</span>
+      </div>
+      <h1 class="titol">PARTIT</h1>
+      <div class="nom-equip equip-visitant">
+        <span id="equipVisitant"></span>
+        <span class="marcador" id="marcadorVisitant">0</span>
+      </div>
+        <button id="taulellButton" class="taulell-button"><i class="bi bi-arrow-left"></i></button>
+    </div>
+
+    <div class="field">
+      <div class="circle-center"></div>
+
+      <div class="area-penalti local"></div>
+      <div class="area-penalti visitant"></div>
+
+      <div class="porteria local"></div>
+      <div class="porteria visitant"></div>
+
+      <div class="center-line"></div>
+
+      <div class="jugador porter local" id="porterLocal"></div>
+      <div class="jugador defensa local" id="defensaLocal"></div>
+      <div class="jugador mig local" id="migLocal"></div>
+      <div class="jugador davanter local" id="davanterLocal"></div>
+
+      <div class="jugador porter visitant" id="porterVisitant"></div>
+      <div class="jugador defensa visitant" id="defensaVisitant"></div>
+      <div class="jugador mig visitant" id="migVisitant"></div>
+      <div class="jugador davanter visitant" id="davanterVisitant"></div> 
+    </div>
+
+    <script src="./js/partit.js"></script>
+  </body>
+</html>
