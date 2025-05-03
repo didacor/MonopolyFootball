@@ -500,6 +500,67 @@ document.getElementById("endGameButton").addEventListener("click", async functio
     }
 });
 
+let jugadorsLocal = [];
+let jugadorsVisitant = [];
+
+window.addEventListener('DOMContentLoaded', () => {
+  carregarJugadors();
+});
+
+async function carregarJugadors() {
+  try {
+    const [resLocal, resVisitant] = await Promise.all([
+      fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
+      fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
+    ]);
+
+    if (!resLocal.ok || !resVisitant.ok) throw new Error("No s'han pogut recuperar els jugadors.");
+
+    jugadorsLocal = await resLocal.json();
+    jugadorsVisitant = await resVisitant.json();
+
+    mostrarJugadors(jugadorsLocal, 'local');
+    mostrarJugadors(jugadorsVisitant, 'visitant');
+
+  } catch (error) {
+    console.error("Error carregant jugadors:", error);
+  }
+}
+
+function mostrarJugadors(jugadors, tipus) {
+  const perPosicio = {
+    porter: [],
+    defensa: [],
+    mig: [],
+    davanter: []
+  };
+
+  jugadors.forEach(j => {
+    const pos = j.posicio.toLowerCase();
+    if (perPosicio[pos]) {
+      perPosicio[pos].push(j);
+    }
+  });
+
+  for (const posicio in perPosicio) {
+    const divId = `${posicio}${tipus.charAt(0).toUpperCase() + tipus.slice(1)}`;
+    const jugador = perPosicio[posicio][perPosicio[posicio].length - 1]; // Agafem l'últim si hi ha més d'un
+
+    if (jugador) {
+      const div = document.getElementById(divId);
+      if (div) {
+        div.innerHTML = `
+          <div>
+            ${jugador.nom}<br>
+            ${jugador.cognom}<br>
+            Atac: ${jugador.atac}<br>
+            Defensa: ${jugador.defensa}
+          </div>
+        `;
+      }
+    }
+  }
+}
 
   
 
