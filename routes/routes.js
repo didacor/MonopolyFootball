@@ -855,4 +855,61 @@ router.post('/fitxarJugador', async (req, res) => {
   }
 });
 
+//Ruta per guardar un partit
+router.post('/guardarPartit', async (req, res) => {
+  const { id_partida, punts_local, punts_visitant } = req.body;
+
+  try {
+    const email = req.session.email;
+
+    if (!email) {
+      return res.status(401).json({ message: "Usuari no autenticat!" });
+    }
+
+    //Busco l'usuari registrat
+    const usuari = await Usuari.findOne({ where: { email } });
+    if (!usuari) {
+      return res.status(404).json({ message: "Usuari no trobat!" });
+    }
+
+    //Busco l'equip virtual de l'usuari registrat
+    const equipLocal = await EquipVirtual.findOne({
+      where: {
+        id_partida,
+        id_usuari: usuari.id
+      }
+    });
+
+    if (!equipLocal) {
+      return res.status(404).json({ message: "Equip virtual de l'usuari no trobat!" });
+    }
+
+    //Busco l'equip virtual de l'usuari per defecte (id 7)
+    const equipVisitant = await EquipVirtual.findOne({
+      where: {
+        id_partida,
+        id_usuari: 7
+      }
+    });
+
+    if (!equipVisitant) {
+      return res.status(404).json({ message: "Equip virtual de l'usuari per defecte no trobat!" });
+    }
+
+    //Creo el nou partit
+    await Partit.create({
+      id_equip_local: equipLocal.id,
+      id_equip_visitant: equipVisitant.id,
+      punts_local,
+      punts_visitant
+    });
+
+    return res.status(200).json({ message: "Partit guardat correctament!" });
+
+  } catch (error) {
+    console.error("Error al guardar el partit:", error);
+    return res.status(500).json({ message: "Error intern al guardar el partit" });
+  }
+});
+
 module.exports = router;

@@ -202,6 +202,8 @@ async function seleccionarJugador(jugador, tipus, posicio, div) {
     } else {
       partitAcabat = true;
 
+      await guardarPartit();
+
       if (marcadorLocal > marcadorVisitant) {
         alert("Ha guanyat l'equip local!");
       } else if (marcadorLocal < marcadorVisitant) {
@@ -221,6 +223,32 @@ function mostrarTorn() {
     tornDiv.textContent = partitAcabat
       ? "Partit acabat"
       : `Torn: ${tornActual === 'local' ? 'Equip Local' : 'Equip Visitant'}`;
+  }
+}
+
+async function guardarPartit() {
+  try {
+    const response = await fetch('/api/guardarPartit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_partida: idPartida,
+        punts_local: parseInt(marcadorLocal),
+        punts_visitant: parseInt(marcadorVisitant)
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Error al guardar el partit:", result.message);
+    } else {
+      console.log("Partit guardat correctament!");
+    }
+  } catch (error) {
+    console.error("Error en la petició per guardar el partit:", error);
   }
 }
 
