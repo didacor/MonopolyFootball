@@ -131,43 +131,6 @@ router.get("/getJugador", async (req, res) => {
   }
 });
 
-//Ruta per recuperar el pressupost de l'equip virtual de l'usuari registrat
-router.get("/getPressupost", async (req, res) => {
-  if (!req.session.email) {
-    return res.status(401).json({ message: "No estàs autenticat!" });
-  }
-
-  try {
-    const usuari = await db.query(
-      "SELECT id FROM Usuari WHERE email = ?", //Primera consulta per rebre l'id del jugador
-      {
-        replacements: [req.session.email],
-        type: db.QueryTypes.SELECT,
-      }
-    );
-
-    if (usuari.length === 0) {
-      return res.status(404).json({ message: "Usuari no trobat" });
-    }
-
-    const pressupost = await db.query(
-      "SELECT pressupost FROM EquipVirtual WHERE id_usuari = ?", //Segona consulta per rebre el pressupost de l'equip del que es l'usuari
-      {
-        replacements: [usuari[0].id],
-        type: db.QueryTypes.SELECT,
-      }
-    );
-
-    if (pressupost.length === 0) {
-      return res.status(404).json({ message: "Equip no trobat" });
-    }
-
-    res.json({ pressupost: pressupost[0].pressupost });
-  } catch (error) {
-    res.status(500).json({ error: "Error al recuperar les dades" });
-  }
-});
-
 //Ruta per recuperar els jugadors d'un equip en concret
 router.get("/getJugador/:teamId", async (req, res) => {
   try {
