@@ -62,6 +62,9 @@ fetch(`/api/getJugador/${teamId}`)
                     const result = await response.json();
                     alert(result.message);
 
+                    //Redirigir després de fitxar un jugador
+                    window.location.href = `taulell.html?id=${idPartida}`;
+
                 } catch (error) {
                     console.error("Error al fitxar el jugador:", error);
                     alert("Error al fitxar el jugador!");
