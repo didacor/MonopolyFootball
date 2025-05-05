@@ -508,23 +508,29 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 async function carregarJugadors() {
-  try {
-    const [resLocal, resVisitant] = await Promise.all([
-      fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
-      fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
-    ]);
-
-    if (!resLocal.ok || !resVisitant.ok) throw new Error("No s'han pogut recuperar els jugadors.");
-
-    jugadorsLocal = await resLocal.json();
-    jugadorsVisitant = await resVisitant.json();
-
-    mostrarJugadors(jugadorsLocal, 'local');
-    mostrarJugadors(jugadorsVisitant, 'visitant');
-
-  } catch (error) {
-    console.error("Error carregant jugadors:", error);
-  }
+    try {
+      const results = await Promise.allSettled([
+        fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
+        fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
+      ]);
+  
+      if (results[0].status === 'fulfilled' && results[0].value.ok) {
+        jugadorsLocal = await results[0].value.json();
+        mostrarJugadors(jugadorsLocal, 'local');
+      } else {
+        console.warn("No s'han pogut carregar els jugadors locals.");
+      }
+  
+      if (results[1].status === 'fulfilled' && results[1].value.ok) {
+        jugadorsVisitant = await results[1].value.json();
+        mostrarJugadors(jugadorsVisitant, 'visitant');
+      } else {
+        console.warn("No s'han pogut carregar els jugadors visitants.");
+      }
+  
+    } catch (error) {
+      console.error("Error inesperat carregant jugadors:", error);
+    }
 }
 
 function mostrarJugadors(jugadors, tipus) {
