@@ -264,6 +264,12 @@ document.getElementById("rollDice").addEventListener("click", () => {
 
     //Canvio al següent jugador
     currentPlayer = (currentPlayer + 1) % 2; 
+
+    if (currentPlayer === 0) {
+        actualitzarPressupostJugador1(idPartida); //Actualitzo el pressupost del current player 0 que es el jugador 1
+    } else {
+        actualitzarPressupostJugador2(idPartida); //Actualitzo el pressupost del current player 1 que es el jugador 2
+    }
 });
 
 document.getElementById("signPlayer").addEventListener("click", async () => { //Si l'usuari fa click a signPlayer
@@ -505,6 +511,8 @@ let jugadorsVisitant = [];
 
 window.addEventListener('DOMContentLoaded', () => {
   carregarJugadors(idPartida);
+  actualitzarPressupostJugador1(idPartida);
+  actualitzarPressupostJugador2(idPartida);
 });
 
 async function carregarJugadors() {
@@ -568,17 +576,20 @@ function mostrarJugadors(jugadors, tipus) {
   }
 }
 
-fetch(`/api/getPressupostUsuariRegistrat?id_partida=${idPartida}`)
-    .then(response => response.json())
-    .then(data => {
+function actualitzarPressupostJugador1(idPartida) {
+    fetch(`/api/getPressupostUsuariRegistrat?id_partida=${idPartida}`)
+      .then(response => response.json())
+      .then(data => {
         document.getElementById("pressupostJugador1").textContent = `Pressupost: ${data.pressupost_actual} €`;
-    })
-    .catch(error => console.error("Error a l'obtenir el pressupost:", error));
-
-fetch(`/api/getPressupostUsuariPerDefecte?id_partida=${idPartida}`)
-    .then(response => response.json())
-    .then(data => {
+      });
+}
+  
+function actualitzarPressupostJugador2(idPartida) {
+    fetch(`/api/getPressupostUsuariPerDefecte?id_partida=${idPartida}`)
+      .then(response => response.json())
+      .then(data => {
         document.getElementById("pressupostJugador2").textContent = `Pressupost: ${data.pressupost_actual} €`;
-    })
-    .catch(error => console.error("Error a l'obtenir el pressupost:", error));
+    });
+}
+  
 
