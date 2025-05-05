@@ -875,4 +875,78 @@ router.post('/guardarPartit', async (req, res) => {
   }
 });
 
+//Ruta per obtenir el pressupost de l'equip virtual de l'usuari registrat
+router.get('/getPressupostUsuariRegistrat', async (req, res) => {
+  if (!req.session.email) {
+    return res.status(401).json({ message: "No estàs autenticat!" });
+  }
+
+  try {
+    const usuari = await db.query(
+      "SELECT id FROM Usuari WHERE email = ?",
+      {
+        replacements: [req.session.email],
+        type: db.QueryTypes.SELECT,
+      }
+    );
+
+    if (usuari.length === 0) {
+      return res.status(404).json({ message: "Usuari no trobat" });
+    }
+
+    const idUsuari = usuari[0].id;
+    const { id_partida } = req.query;
+
+    if (!id_partida) {
+      return res.status(400).json({ error: 'Falta el id de la partida' });
+    }
+
+    const pressupost = await db.query(
+      "SELECT pressupost_actual FROM PartidaUsuari WHERE id_partida = ? AND id_usuari = ?",
+      {
+        replacements: [id_partida, idUsuari],
+        type: db.QueryTypes.SELECT,
+      }
+    );
+
+    if (pressupost.length === 0) {
+      return res.status(404).json({ message: "No s'ha trobat pressupost per aquest usuari i partida" });
+    }
+
+    res.json(pressupost[0]);
+  } catch (error) {
+    console.error("Error al recuperar el pressupost:", error);
+    res.status(500).json({ error: "Error al recuperar el pressupost" });
+  }
+});
+
+//Ruta per obtenir el pressupost de l'equip virtual de l'usuari amb id 7
+router.get('/getPressupostUsuariPerDefecte', async (req, res) => {
+  try {
+    const usuariId = 7;
+    const { id_partida } = req.query;
+
+    if (!id_partida) {
+      return res.status(400).json({ error: 'Falta el id de la partida' });
+    }
+
+    const pressupost = await db.query(
+      "SELECT pressupost_actual FROM PartidaUsuari WHERE id_partida = ? AND id_usuari = ?",
+      {
+        replacements: [id_partida, usuariId],
+        type: db.QueryTypes.SELECT,
+      }
+    );
+
+    if (pressupost.length === 0) {
+      return res.status(404).json({ message: "No s'ha trobat pressupost per aquest usuari i partida" });
+    }
+
+    res.json(pressupost[0]);
+  } catch (error) {
+    console.error("Error al recuperar el pressupost:", error);
+    res.status(500).json({ error: "Error al recuperar el pressupost" });
+  }
+});
+
 module.exports = router;

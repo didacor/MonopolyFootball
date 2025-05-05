@@ -504,7 +504,7 @@ let jugadorsLocal = [];
 let jugadorsVisitant = [];
 
 window.addEventListener('DOMContentLoaded', () => {
-  carregarJugadors();
+  carregarJugadors(idPartida);
 });
 
 async function carregarJugadors() {
@@ -562,5 +562,17 @@ function mostrarJugadors(jugadors, tipus) {
   }
 }
 
-  
+fetch(`/api/getPressupostUsuariRegistrat?id_partida=${idPartida}`)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("pressupostJugador1").textContent = `Pressupost: ${data.pressupost_actual} €`;
+    })
+    .catch(error => console.error("Error a l'obtenir el pressupost:", error));
+
+fetch(`/api/getPressupostUsuariPerDefecte?id_partida=${idPartida}`)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("pressupostJugador2").textContent = `Pressupost: ${data.pressupost_actual} €`;
+    })
+    .catch(error => console.error("Error a l'obtenir el pressupost:", error));
 

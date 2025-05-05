@@ -202,7 +202,11 @@ h1 {
 .visitant.davanter {
     right: 200px;
     top: 79%;
-} 
+}
 
-
-
+.pressupost {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 50px;
+    color: #333;
+}
