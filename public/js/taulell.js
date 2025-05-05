@@ -2,7 +2,7 @@ let playerPositions = [1, 1]; //Variable per guardar les posicions dels jugadors
 let currentPlayer = 0; //Variable per guardar el jugador actual (0 = jugador 1, 1 = jugador 2)
 let laps = [0, 0]; //Variable per guardar quantes voltes porta cada jugadors
 let playerJailTurns = [0, 0]; //Variable per guardar els torns per quan un jugador caigui a presó
-let previousCurrentPlayer = null;
+let previousCurrentPlayer = null; //Variable per guardar la anterior posició del currentPlayer
 
 const rows = [ //Variable per guardar en un array les caselles
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
