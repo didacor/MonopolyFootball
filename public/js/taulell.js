@@ -2,6 +2,7 @@ let playerPositions = [1, 1]; //Variable per guardar les posicions dels jugadors
 let currentPlayer = 0; //Variable per guardar el jugador actual (0 = jugador 1, 1 = jugador 2)
 let laps = [0, 0]; //Variable per guardar quantes voltes porta cada jugadors
 let playerJailTurns = [0, 0]; //Variable per guardar els torns per quan un jugador caigui a presó
+let previousCurrentPlayer = null;
 
 const rows = [ //Variable per guardar en un array les caselles
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -173,6 +174,7 @@ document.getElementById("rollDice").addEventListener("click", () => {
     }
 
     if (teams[playerPositions[currentPlayer]]) { //Si l'usuari cau a una casella teams
+        previousCurrentPlayer = currentPlayer; // Guarda el jugador que puede fichar
         document.getElementById("signPlayer").disabled = false; //Habilito el botó signPlayer
         document.getElementById("rollDice").disabled = true; //Deshabilito el botó rollDice
         document.getElementById("passTurn").disabled = false; //Habilito el botó passTurn
@@ -189,47 +191,6 @@ document.getElementById("rollDice").addEventListener("click", () => {
         document.getElementById("signPlayer").disabled = true; //Deshabilito el botó signPlayer
         document.getElementById("passTurn").disabled = true; //Deshabilito el botó passTurn
     }
-
-    document.getElementById("signPlayer").addEventListener("click", async () => { //Si l'usuari fa click a signPlayer
-        document.getElementById("rollDice").disabled = true; //Deshabilito el botó de tirar el dau
-        document.getElementById("passTurn").disabled = true; //Deshabilito el botó de passar torn
-
-        let teamId = teamsId[playerPositions[currentPlayer]]; //Guardo l'ID de la casella de l'equip on ha caigut l'usuari
-
-        if (teamId !== undefined) {
-            try {
-                let equipVirtualId = null;
-
-                if (currentPlayer === 0) {
-                    const response = await fetch(`/api/getEquipVirtualUsuariRegistrat?id_partida=${idPartida}`, {
-                        credentials: 'include'
-                    });
-                    if (!response.ok) throw new Error('Error al obtenir l\'equip virtual de l\'usuari registrat');
-                    const data = await response.json();
-                    equipVirtualId = data.id; 
-                } else if (currentPlayer === 1) {
-                    const response = await fetch(`/api/getEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`, {
-                        credentials: 'include'
-                    });
-                    if (!response.ok) throw new Error('Error al obtenir l\'equip virtual de l\'usuari per defecte');
-                    const data = await response.json();
-                    equipVirtualId = data.id;
-                }
-
-                setTimeout(() => {
-                    window.location.href = `fitxar.html?teamId=${teamId}&partidaId=${idPartida}&equipVirtualId=${equipVirtualId}`;
-                }, 500);
-
-            } catch (error) {
-                console.error(error);
-                alert("No s'ha pogut recuperar l'equip virtual!");
-            }
-        } else {
-            console.log("No és troba cap id per aquest equip! " + playerPositions[currentPlayer]);
-        }
-        
-        currentPlayer = (currentPlayer + 1) % 2;
-    }); 
 
     //Actualitzo el resultat del dau
     document.getElementById("result").innerText = `🎲 Jugador ${currentPlayer + 1}: Has tret un ${diceRoll}, ara estàs a la casella ${playerPositions[currentPlayer]}`;
@@ -304,6 +265,45 @@ document.getElementById("rollDice").addEventListener("click", () => {
     //Canvio al següent jugador
     currentPlayer = (currentPlayer + 1) % 2; 
 });
+
+document.getElementById("signPlayer").addEventListener("click", async () => { //Si l'usuari fa click a signPlayer
+    document.getElementById("rollDice").disabled = true; //Deshabilito el botó de tirar el dau
+    document.getElementById("passTurn").disabled = true; //Deshabilito el botó de passar torn
+
+    let teamId = teamsId[playerPositions[previousCurrentPlayer]]; //Guardo l'ID de la casella de l'equip on ha caigut l'usuari
+
+    if (teamId !== undefined) {
+        try {
+            let equipVirtualId = null;
+
+            if (previousCurrentPlayer === 0) {
+                const response = await fetch(`/api/getEquipVirtualUsuariRegistrat?id_partida=${idPartida}`, {
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('Error al obtenir l\'equip virtual de l\'usuari registrat');
+                const data = await response.json();
+                equipVirtualId = data.id; 
+            } else if (previousCurrentPlayer === 1) {
+                const response = await fetch(`/api/getEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`, {
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('Error al obtenir l\'equip virtual de l\'usuari per defecte');
+                const data = await response.json();
+                equipVirtualId = data.id;
+            }
+
+            setTimeout(() => {
+                window.location.href = `fitxar.html?teamId=${teamId}&partidaId=${idPartida}&equipVirtualId=${equipVirtualId}`;
+            }, 500);
+
+        } catch (error) {
+            console.error(error);
+            alert("No s'ha pogut recuperar l'equip virtual!");
+        }
+    } else {
+        console.log("No és troba cap id per aquest equip! " + playerPositions[previousCurrentPlayer]);
+    }
+}); 
 
 document.getElementById("menuButton").addEventListener("click", function() {
     window.location.href = "menu.html";  
