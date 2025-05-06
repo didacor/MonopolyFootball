@@ -15,18 +15,11 @@ app.use(session({
   secret: "Girona4617", 
   resave: false,
   saveUninitialized: true,
-  cookie: { 
-    secure: process.env.NODE_ENV === "production",  // Solo en producción usará cookies seguras
-    sameSite: 'lax', // Prevenir problemas con CORS
-  } 
+  cookie: { secure: false } 
 }));
 
 //Configuració de CORS
-app.use(cors({
-  origin: "https://monopolyfootball.onrender.com",  //Ruta del Render 
-  credentials: true  
-}));
-
+app.use(cors());
 app.use(express.json()); //Per rebre JSON en les peticions
 app.use(express.static("public"));
 
