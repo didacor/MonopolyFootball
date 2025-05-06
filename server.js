@@ -4,6 +4,8 @@ const { Sequelize } = require("sequelize");
 const session = require("express-session");
 require("dotenv").config(); //Carrego les variables de l'entorn 
 
+const PORT = process.env.PORT || 3000;
+
 const sequelize = require("./database"); //Importo la connexió a la base de dades
 const routes = require("./routes/routes"); //Importo les rutes
 
@@ -13,11 +15,18 @@ app.use(session({
   secret: "Girona4617", 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { 
+    secure: process.env.NODE_ENV === "production",  // Solo en producción usará cookies seguras
+    sameSite: 'lax', // Prevenir problemas con CORS
+  } 
 }));
 
 //Configuració de CORS
-app.use(cors());
+app.use(cors({
+  origin: "https://monopolyfootball.onrender.com/login.html",  // Asegúrate de poner la URL de tu frontend en Render
+  credentials: true  // Permite que las cookies se envíen junto con las solicitudes
+}));
+
 app.use(express.json()); //Per rebre JSON en les peticions
 app.use(express.static("public"));
 
@@ -42,6 +51,6 @@ app.get("/", (req, res) => {
 });
 
 //Inicio el servidor en el port 3000
-app.listen(3000, '0.0.0.0', () => {
-  console.log("🚀 Servidor funcionant a http://localhost:3000");
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Servidor funcionant a http://localhost:${PORT}`);
 });
