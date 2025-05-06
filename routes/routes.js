@@ -69,6 +69,9 @@ router.post("/login", async (req, res) => {
     //Guardo l'email a la sessió
     req.session.email = usuari.email;
 
+    // Verifica si la sesión está correctamente configurada
+    console.log("Sesión iniciada para el usuario:", req.session.email);
+
     res.json({ message: "Login correcte!", id: usuari.id });
   } catch (error) {
     res.status(500).json({ message: "Error en el servidor!", error });

@@ -23,8 +23,8 @@ app.use(session({
 
 //Configuració de CORS
 app.use(cors({
-  origin: "https://monopolyfootball.onrender.com/login.html",  // Asegúrate de poner la URL de tu frontend en Render
-  credentials: true  // Permite que las cookies se envíen junto con las solicitudes
+  origin: "https://monopolyfootball.onrender.com",  //Ruta del Render 
+  credentials: true  
 }));
 
 app.use(express.json()); //Per rebre JSON en les peticions
