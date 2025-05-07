@@ -97,6 +97,7 @@ router.get("/getUsuari", async (req, res) => {
   }
 });
 
+//Ruta per recuperar el nom i cognom de l'usuari amb id 7
 router.get("/getUsuari2", async (req, res) => {
   try {
       const usuari = await db.query("SELECT id, nom, cognom FROM Usuari WHERE email = ?", {
