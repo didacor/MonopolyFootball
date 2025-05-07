@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error a l'obtenir l'usuari:", error));
 
-    //Obtinc les partides recents
+    //Obtinc les partides recents, les últimes 6
     fetch("/api/getPartidesRecents")
         .then(response => response.json())
         .then(partides => {
