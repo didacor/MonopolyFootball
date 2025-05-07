@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const { Sequelize } = require("sequelize");
 const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const { Sequelize } = require("sequelize");
 require("dotenv").config(); //Carrego les variables de l'entorn 
 
 const PORT = process.env.PORT || 3000;
@@ -11,13 +12,25 @@ const routes = require("./routes/routes"); //Importo les rutes
 
 const app = express();
 
+const sessionStore = new MySQLStore({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+
+
 app.use(session({
-  secret: "Girona4617", 
+  key: "session_cookie_name",
+  secret: process.env.SESSION_SECRET || "Girona4617",
+  store: sessionStore,
   resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    secure: false
-  } 
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // en producción, true si usas HTTPS
+    maxAge: 24 * 60 * 60 * 1000, // 1 día
+  }
 }));
 
 //Configuració de CORS
@@ -27,6 +40,11 @@ app.use(express.static("public"));
 
 //Utilitzo les rutes de l'arxiu routes.js
 app.use("/api", routes);
+
+//Ruta d'inici
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
 
 //Provo la connexió amb MySQL
 sequelize
@@ -39,11 +57,6 @@ sequelize
   .sync({ force: false })
   .then(() => console.log("La BBDD ha estat sincronitzada!")) //Missatge d'éxit
   .catch((err) => console.error("Hi ha hagut un error a l'hora de sincronitzar la BBDD:", err)); //Missatge d'error
-
-//Ruta d'inici
-app.get("/", (req, res) => {
-  res.redirect("login.html");
-});
 
 //Inicio el servidor en el port 3000
 app.listen(PORT, '0.0.0.0', () => {
