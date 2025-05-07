@@ -5,7 +5,7 @@ const equipVirtualId = params.get("equipVirtualId");
 
 document.getElementById("backMonopoly").addEventListener("click", () => {
     setTimeout(() => {
-        window.location.href = `taulell.html?id=${idPartida}`;
+        window.location.href = `taulell.html?partidaId=${idPartida}`;
     }, 500);
 });
 
@@ -63,7 +63,7 @@ fetch(`/api/getJugador/${teamId}`)
                     alert(result.message);
 
                     //Redirigir després de fitxar un jugador
-                    window.location.href = `taulell.html?id=${idPartida}`;
+                    window.location.href = `taulell.html?partidaId=${idPartida}`;
 
                 } catch (error) {
                     console.error("Error al fitxar el jugador:", error);
