@@ -116,7 +116,7 @@ const teamsId = { //Variable per guardar les caselles dels equips amb els seus I
 };
 
 const urlParams = new URLSearchParams(window.location.search);
-const idPartida = urlParams.get('id');  //Obtinc el valor del paràmetre id de la URL
+const idPartida = urlParams.get('partidaId');  //Obtinc el valor del paràmetre id de la URL
 
 //Quan faci click a rollDice
 document.getElementById("rollDice").addEventListener("click", () => {
