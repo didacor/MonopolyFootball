@@ -80,6 +80,8 @@ router.get("/getUsuari", async (req, res) => {
   if (!req.session.email) {
       return res.status(401).json({ message: "No estàs autenticat!" });
   }
+  console.log("Email en sessió:", req.session.email);
+
 
   try {
       const usuari = await db.query("SELECT id, nom, cognom FROM Usuari WHERE email = ?", {
