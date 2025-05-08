@@ -15,7 +15,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const data = await response.json();
         if (response.ok) {
             const idUsuari = data.id;
-            window.location.href = `menu.html`; //Si el login és correcte, s'obre taulell.html
+            window.location.href = `menu.html?usuariId=${idUsuari}`; //Si el login és correcte, s'obre taulell.html
         } else {
             alert(data.message); //Mostro l'error en cas de email i contrasenya incorrectes
         }
