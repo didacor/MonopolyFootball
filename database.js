@@ -1,4 +1,3 @@
-//Connexió a la base de dades
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
@@ -11,6 +10,9 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT || 3306,
     dialect: "mysql",
     logging: false,
+    dialectOptions: {
+      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false
+    }
   }
 );
 
