@@ -67,7 +67,9 @@ router.post("/login", async (req, res) => {
     }
 
     //Guardo l'email a la sessió
-    req.session.email = usuari.email;
+    req.session.usuariId = usuari.id;
+    req.session.nom = usuari.nom;
+    req.session.cognom = usuari.cognom;
 
     res.json({ message: "Login correcte!", id: usuari.id });
   } catch (error) {
@@ -76,25 +78,16 @@ router.post("/login", async (req, res) => {
 });
 
 //Ruta per recuperar el nom i cognom de l'usuari que ha iniciat sessió
-router.get("/getUsuari", async (req, res) => {
-  if (!req.session.email) {
-      return res.status(401).json({ message: "No estàs autenticat!" });
+router.get("/getUsuari", (req, res) => {
+  if (!req.session.usuariId) {
+    return res.status(401).json({ message: "No autoritzat" });
   }
 
-  try {
-      const usuari = await db.query("SELECT id, nom, cognom FROM Usuari WHERE email = ?", {
-          replacements: [req.session.email], //Utilitzo l'email de la sessió
-          type: db.QueryTypes.SELECT
-      });
-
-      if (usuari.length === 0) {
-          return res.status(404).json({ message: "Usuari no trobat" });
-      }
-
-      res.json(usuari[0]); //Envio el primer resultat
-  } catch (error) {
-      res.status(500).json({ error: "Error al recuperar les dades" });
-  }
+  res.json({
+    id: req.session.usuariId,
+    nom: req.session.nom,
+    cognom: req.session.cognom
+  });
 });
 
 //Ruta per recuperar el nom i cognom de l'usuari amb id 7
