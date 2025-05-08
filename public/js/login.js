@@ -5,9 +5,10 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const contrasenya = document.getElementById("contrasenya").value;
 
     try {
-        const response = await fetch("http://localhost:3000/api/login", {
+        const response = await fetch("https://ellaboratori.cat/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ email, contrasenya })
         });
 
