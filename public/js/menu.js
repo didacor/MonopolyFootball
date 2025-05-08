@@ -2,7 +2,7 @@ let usuariId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     //Obtinc l'usuari
-    fetch("https://monopolyfootball.onrender.com/api/getUsuari", {
+    fetch("/api/getUsuari", {
         method: "GET",
         credentials: "include"
     })
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => console.error("Error a l'obtenir l'usuari:", error));
 
     // Obtinc les partides recents, les últimes 6
-    fetch("https://monopolyfootball.onrender.com/api/getPartidesRecents", {
+    fetch("/api/getPartidesRecents", {
         method: "GET",
         credentials: "include"
     })
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!nomEquip2) return;
 
         try {
-            const res = await fetch("https://monopolyfootball.onrender.com/api/crearPartida", {
+            const res = await fetch("/api/crearPartida", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
