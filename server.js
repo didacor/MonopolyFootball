@@ -20,6 +20,13 @@ const sessionStore = new MySQLStore({
   database: process.env.DB_NAME,
 });
 
+//Configuració de CORS
+app.use(cors({
+  origin: 'https://monopolyfootball.onrender.com',
+  credentials: true
+}
+));
+
 app.use(session({
   key: "session_cookie_name",
   secret: process.env.SESSION_SECRET || "Girona4617",
@@ -32,13 +39,6 @@ app.use(session({
     maxAge: 86400000
   }
 }));
-
-//Configuració de CORS
-app.use(cors({
-  origin: 'https://monopolyfootball.onrender.com',
-  credentials: true
-}
-));
 
 app.use(express.json()); //Per rebre JSON en les peticions
 app.use(express.static("public"));
