@@ -34,7 +34,12 @@ app.use(session({
 }));
 
 //Configuració de CORS
-app.use(cors());
+app.use(cors({
+  origin: 'https://monopolyfootball.onrender.com',
+  credentials: true
+}
+));
+
 app.use(express.json()); //Per rebre JSON en les peticions
 app.use(express.static("public"));
 
