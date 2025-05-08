@@ -2,7 +2,7 @@ let usuariId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     //Obtinc l'usuari
-    fetch("/api/getUsuari", {
+    fetch("https://monopolyfootball-api.onrender.com/api/getUsuari", {
         method: "GET",
         credentials: "include"
     })
