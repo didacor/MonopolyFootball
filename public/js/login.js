@@ -7,8 +7,8 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     try {
         const response = await fetch("/api/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
             credentials: "include",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, contrasenya })
         });
 
