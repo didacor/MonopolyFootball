@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => console.error("Error a l'obtenir les partides:", error));
 
-    // Creo la partida al fer clic al botó
+    //Creo la partida al fer clic al botó
     document.getElementById("crear-partida").addEventListener("click", async (event) => {
         event.preventDefault();
 
