@@ -1,7 +1,7 @@
 let usuariId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Obtinc l'usuari
+    //Obtinc l'usuari
     fetch("/api/getUsuari", {
         method: "GET",
         credentials: "include"
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(response => response.json())
     .then(partides => {
         const container = document.getElementById("recent-games");
-        container.innerHTML = ""; // Netejo abans d'inserir
+        container.innerHTML = ""; //Netejo abans d'inserir
 
         partides.forEach(partida => {
             const columna = document.createElement("div");
