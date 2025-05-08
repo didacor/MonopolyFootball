@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "La contrasenya és incorrecta!" });
     }
 
-    //Guardo l'email a la sessió
+    //Guardo l'Id, el nom i cognom a la sessió
     req.session.usuariId = usuari.id;
     req.session.nom = usuari.nom;
     req.session.cognom = usuari.cognom;
