@@ -12,16 +12,6 @@ const routes = require("./routes/routes"); //Importo les rutes
 
 const app = express();
 
-//Configuració de CORS
-app.use(cors({
-  origin: 'https://monopolyfootball.onrender.com',
-  credentials: true
-}
-));
-
-app.use(express.json()); //Per rebre JSON en les peticions
-app.use(express.static("public"));
-
 const sessionStore = new MySQLStore({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT || 3306,
@@ -31,7 +21,7 @@ const sessionStore = new MySQLStore({
 });
 
 app.use(session({
-  key: "Girona4617",
+  key: "session_cookie_name",
   secret: process.env.SESSION_SECRET || "Girona4617",
   store: sessionStore,
   resave: false,
@@ -42,6 +32,16 @@ app.use(session({
     maxAge: 86400000
   }
 }));
+
+//Configuració de CORS
+app.use(cors({
+  origin: 'https://monopolyfootball.onrender.com',
+  credentials: true
+}
+));
+
+app.use(express.json()); //Per rebre JSON en les peticions
+app.use(express.static("public"));
 
 //Utilitzo les rutes de l'arxiu routes.js
 app.use("/api", routes);
