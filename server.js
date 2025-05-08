@@ -20,6 +20,8 @@ const sessionStore = new MySQLStore({
   database: process.env.DB_NAME,
 });
 
+const isProduction = process.env.NODE_ENV === "production"; // Determina si estás en producción
+
 //Configuració de CORS
 app.use(cors({
   origin: 'https://monopolyfootball.onrender.com',
@@ -34,7 +36,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,
+    secure: isProduction,
     httpOnly: true,
     sameSite: 'none'
   }
