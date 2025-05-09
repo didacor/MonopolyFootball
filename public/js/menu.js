@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("/api/getUsuari")
         .then(response => response.json())
         .then(data => {
+            console.log("Usuari:", data);
             document.getElementById("username").textContent = `${data.nom} ${data.cognom}`;
             usuariId = data.id;
 
