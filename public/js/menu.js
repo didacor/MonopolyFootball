@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //Creo la partida
             const res = await fetch("/api/crearPartida", {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
