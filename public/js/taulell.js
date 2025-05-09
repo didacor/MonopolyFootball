@@ -351,7 +351,7 @@ if (teams[playerPositions[currentPlayer]]) {
     }  
 }
 
-fetch(`http://localhost:3000/api/getUltimMoviment?idPartida=${idPartida}`)
+fetch(`/api/getUltimMoviment?idPartida=${idPartida}`)
   .then(response => response.json())
   .then(data => {
     console.log(data); 
@@ -383,7 +383,7 @@ fetch(`http://localhost:3000/api/getUltimMoviment?idPartida=${idPartida}`)
             pintaCasella(1, 1);
 
             // Realitzem una sol·licitud per actualitzar les voltes a 0
-            fetch(`http://localhost:3000/api/actualitzarVoltes`, {
+            fetch(`/api/actualitzarVoltes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -409,7 +409,7 @@ fetch(`http://localhost:3000/api/getUltimMoviment?idPartida=${idPartida}`)
             pintaCasella(casella2, currentPlayer + 1);
         }
 
-        return fetch(`http://localhost:3000/api/getTornActual?idPartida=${idPartida}`);
+        return fetch(`/api/getTornActual?idPartida=${idPartida}`);
 
     } else {
         console.error("No s'han trobat els últims moviments:", data.message);
