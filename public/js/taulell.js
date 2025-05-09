@@ -247,6 +247,7 @@ document.getElementById("rollDice").addEventListener("click", () => {
 
     fetch('/api/insertMoviment', {
         method: 'POST',
+        credentials: "include",
         headers: {
             'Content-Type': 'application/json',
         },
@@ -351,7 +352,9 @@ if (teams[playerPositions[currentPlayer]]) {
     }  
 }
 
-fetch(`/api/getUltimMoviment?idPartida=${idPartida}`)
+fetch(`/api/getUltimMoviment?idPartida=${idPartida}`, {
+    credentials: "include"
+})
   .then(response => response.json())
   .then(data => {
     console.log(data); 
@@ -385,6 +388,7 @@ fetch(`/api/getUltimMoviment?idPartida=${idPartida}`)
             // Realitzem una sol·licitud per actualitzar les voltes a 0
             fetch(`/api/actualitzarVoltes`, {
                 method: 'POST',
+                credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -409,7 +413,9 @@ fetch(`/api/getUltimMoviment?idPartida=${idPartida}`)
             pintaCasella(casella2, currentPlayer + 1);
         }
 
-        return fetch(`/api/getTornActual?idPartida=${idPartida}`);
+        return fetch(`/api/getTornActual?idPartida=${idPartida}`, {
+            credentials: "include"
+        });
 
     } else {
         console.error("No s'han trobat els últims moviments:", data.message);
@@ -486,6 +492,7 @@ document.getElementById("endGameButton").addEventListener("click", async functio
     try {
         const response = await fetch('/api/finalitzarPartida', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -518,8 +525,12 @@ window.addEventListener('DOMContentLoaded', () => {
 async function carregarJugadors() {
     try {
       const results = await Promise.allSettled([
-        fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
-        fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
+        fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`, {
+            credentials: "include"
+        }),
+        fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`, {
+            credentials: "include"
+        })
       ]);
   
       if (results[0].status === 'fulfilled' && results[0].value.ok) {
@@ -577,7 +588,9 @@ function mostrarJugadors(jugadors, tipus) {
 }
 
 function actualitzarPressupostJugador1(idPartida) {
-    fetch(`/api/getPressupostUsuariRegistrat?id_partida=${idPartida}`)
+    fetch(`/api/getPressupostUsuariRegistrat?id_partida=${idPartida}`, {
+        credentials: "include"
+    })
       .then(response => response.json())
       .then(data => {
         document.getElementById("pressupostJugador1").textContent = `Pressupost: ${data.pressupost_actual} €`;
@@ -585,7 +598,9 @@ function actualitzarPressupostJugador1(idPartida) {
 }
   
 function actualitzarPressupostJugador2(idPartida) {
-    fetch(`/api/getPressupostUsuariPerDefecte?id_partida=${idPartida}`)
+    fetch(`/api/getPressupostUsuariPerDefecte?id_partida=${idPartida}`, {
+        credentials: "include"
+    })
       .then(response => response.json())
       .then(data => {
         document.getElementById("pressupostJugador2").textContent = `Pressupost: ${data.pressupost_actual} €`;
