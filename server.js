@@ -21,23 +21,30 @@ const sessionStore = new MySQLStore({
 });
 
 //Configuració de CORS
-/*app.use(cors({
+app.use(cors({
   origin: 'https://monopolyfootball.onrender.com',
   credentials: true
 }
-));*/
+));
 
-app.use(session({
-  key: "session_cookie_name",
+/*app.use(session({
+  key: "session_cookie_name", 
   secret: process.env.SESSION_SECRET || "Girona4617",
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     httpOnly: true,
     sameSite: 'none'
   }
+}));*/
+
+app.use(session({
+  secret: "Girona4617", 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } 
 }));
 
 app.use(express.json()); //Per rebre JSON en les peticions
