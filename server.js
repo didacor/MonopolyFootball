@@ -21,11 +21,11 @@ const sessionStore = new MySQLStore({
 });
 
 //Configuració de CORS
-app.use(cors({
+/*app.use(cors({
   origin: 'https://monopolyfootball.onrender.com',
   credentials: true
 }
-));
+));*/
 
 app.use(session({
   key: "session_cookie_name",
@@ -34,7 +34,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'none'
   }
