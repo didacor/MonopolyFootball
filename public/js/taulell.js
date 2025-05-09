@@ -591,5 +591,3 @@ function actualitzarPressupostJugador2(idPartida) {
         document.getElementById("pressupostJugador2").textContent = `Pressupost: ${data.pressupost_actual} €`;
     });
 }
-  
-
