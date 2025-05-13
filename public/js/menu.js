@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             //Redirigeixo a la finestra del taulell
-            window.location.href = `taulell.html?id=${idPartida}`;
+            window.location.href = `taulell.html?partidaId=${idPartida}`;
 
         } catch (error) {
             console.error("Error en el procés de creació:", error);
