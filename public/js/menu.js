@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             for (const equip of equips) {
                 await fetch("/api/afegirEquipVirtual", {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json"
                     },
