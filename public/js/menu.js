@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="card-body">
                             <h5 class="card-title">ID: ${partida.id}</h5>
                             <p class="card-text"><strong>Estat:</strong> ${partida.estat} | <strong>Torn actual:</strong> ${partida.torn_actual}</p>
-                            <a href="taulell.html?id=${partida.id}" class="btn btn-success">🔗 Unir-se</a>
+                            <a href="taulell.html?partidaId=${partida.id}" class="btn btn-success">🔗 Unir-se</a>
                         </div>
                     </div>
                 `;
