@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const idPartida = urlParams.get('partidaId');  //Obtinc el valor del paràmetre partidaId de la URL
+const idPartida = urlParams.get("partidaId");  //Obtinc el valor del paràmetre partidaId de la URL
 
 let jugadorsLocal = [];
 let jugadorsVisitant = [];
@@ -18,6 +18,7 @@ document.getElementById("taulellButton").addEventListener("click", async () => {
   try {
     const response = await fetch('/api/actualitzarVoltes', {
       method: 'POST',
+      credentials: "include",
       headers: {
         'Content-Type': 'application/json'
       },
@@ -40,8 +41,20 @@ document.getElementById("taulellButton").addEventListener("click", async () => {
 async function carregarEquips() {
   try {
     const [resLocal, resVisitant] = await Promise.all([
-      fetch(`/api/getEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
-      fetch(`/api/getEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
+      fetch(`/api/getEquipVirtualUsuariRegistrat?id_partida=${idPartida}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }),
+      fetch(`/api/getEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
     ]);
 
     if (!resLocal.ok || !resVisitant.ok) {
@@ -62,8 +75,20 @@ async function carregarEquips() {
 async function carregarJugadors() {
   try {
     const [resLocal, resVisitant] = await Promise.all([
-      fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`),
-      fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`)
+      fetch(`/api/getJugadorsEquipVirtualUsuariRegistrat?id_partida=${idPartida}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }),
+      fetch(`/api/getJugadorsEquipVirtualUsuariPerDefecte?id_partida=${idPartida}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
     ]);
 
     if (!resLocal.ok || !resVisitant.ok) {
@@ -230,6 +255,7 @@ async function guardarPartit() {
   try {
     const response = await fetch('/api/guardarPartit', {
       method: 'POST',
+      credentials: "include",
       headers: {
         'Content-Type': 'application/json'
       },
@@ -253,6 +279,6 @@ async function guardarPartit() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  carregarEquips();
-  carregarJugadors();
+  carregarEquips(idPartida);
+  carregarJugadors(idPartida);
 });

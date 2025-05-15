@@ -708,7 +708,7 @@ router.get('/getJugadorsEquipVirtualUsuariRegistrat', async (req, res) => {
     );
 
     if (jugadors.length === 0) {
-      return res.status(404).json({ message: "No hi ha jugadors per aquest equip virtual" });
+      return res.json([]);
     }
 
     res.json(jugadors);
@@ -755,7 +755,7 @@ router.get('/getJugadorsEquipVirtualUsuariPerDefecte', async (req, res) => {
     );
 
     if (jugadors.length === 0) {
-      return res.status(404).json({ message: "No hi ha jugadors per aquest equip virtual" });
+      return res.json([]);
     }
 
     res.json(jugadors);
